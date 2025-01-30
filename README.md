@@ -13,7 +13,7 @@ Repository VSCode
 Ici, on utilise donc l'API REST de Github, afin de collecter un certain nombre de données relatif au repo VSCODE. Les différentes fonctions utilisant l'API sont comprises dans le fichier github_api.py, qui seront appelées dans le fichier main.py. 
 Les données ainsi obtenus sont au format JSON.
 
-![image-3.png](images/image.png)
+![image-3.png](images/class.png)
 
 On définit une Classe python, et chaque méthode de cette classe correspondra à un type différent d'informations du repo VCODE que l'on récupèrera.
 
@@ -23,51 +23,51 @@ Maintenant, l'objectif est de charger nos données dans un datalake DuckDB.
 ### 1. JSON to PARQUET
 La fonction définit dans le fichier utils.py permet de convertir nos données du format JSON au format parquet (orienté colonne). On utilise pour cela l'outil pyarrow.
 
-![image-4.png](attachment:image-4.png)
+![image-4.png](images/parquet.png)
 
 ### 2. PARQUET to DuckDB
 Cette fonction sera appelée dans le script to_duckdb.py qui permet ensuite, de charger nos fichiers parquets dans un datalake DuckDB. Ces données bruts, seront ainsi stockées dans différentes tables, dans le schéma raw.
 
-![image-2.png](attachment:image-2.png)
+![image-2.png](images/to_duckdb.png)
 
 ## Etape 3 DBT
 Maintenant, nous allons chercher à terminer notre architecture décisionnelle, en transformant nos données d'une structure brute, à la modélisation définit plutôt dans notre diagramme ERD:
 
-![image.png](attachment:image.png)
+![image.png](images/model.png)
 
 Pour cela, nous allons avec DBT créer 3 schéma différents (bronze,silver et gold). Chacun de ces schémas comprendra plusieurs modèles (1 modèle = 1 table)
 
 Une fois nos différents modèles créés pour chacun de ces schémas, on lance la commandes dbt build pour vérifier la bonne éxécution de nos transformations:
 
-![image-5.png](attachment:image-5.png)
+![image-5.png](images/dbt_2.png)
 
 Tout nos différents schémas sont ainsi créés:
 
-![image-6.png](attachment:image-6.png)
+![image-6.png](images/dbt_3.png)
 
 ### 1. Schéma Bronze
 Ce schéma correspond aux données bruts. Même si le schéma bronze est identique au schéma raw, il permet de normaliser les formats de stockage, assurer une copie de sauvegarde et permet de vérifier que DBT fonctionne correctement.
 
-![image-7.png](attachment:image-7.png)
+![image-7.png](images/bronze.png)
 
 ### 2. Schéma Silver
 Ce schéma est un intermédiaire entre le bronze et le gold, et permet d'effectuer des traitements sur nos données, comme: garder les colonnes nécessaires, filtrer les données, normaliser certaines colonnes, etc.
 
-![image-8.png](attachment:image-8.png)
+![image-8.png](images/silver.png)
 
 ### 3. Schéma Gold
 Ce schéma est le schéma final, celui qui répond à notre but initial. Il pourra servir à faire des analyses sur nos données, où faire du BI. Le temps de requêtage (pour des dashboards par exemple) sera réduit, car les traitements seront déjà effectués dans le schéma silver.
 
-![image-9.png](attachment:image-9.png)
+![image-9.png](images/gold.png)
 
 
 Pour notre diagramme ERD, nous avons choisis de nous focaliser sur la table contributions_fact_table:
 
-![image-10.png](attachment:image-10.png)
+![image-10.png](images/table.png)
 
 Ainsi, le modèle dans le dossier gold a été créé dans ce but, afin d'obtenir une table qui corrrespond le plus possible à la table contributions_fact_table définit dans notre diagramme ERD:
 
-![image-11.png](attachment:image-11.png)
+![image-11.png](images/table_cli.png)
 
 
 ## Etape 4: BI et Dashboard
@@ -75,19 +75,19 @@ Ainsi, le modèle dans le dossier gold a été créé dans ce but, afin d'obteni
 On peut maintenant analyser nos données pour consulter diverses informations. En intégrant un scheduler, on pourrait obtenir des dashboards qui se mettent à jour automatiquement tous les jours par exemple.
 Exemple: On a ajouté un modèle gold, pour obtenir la table top_contributors, qui nous permet de visualiser les contributeurs les plus actifs du projet VSCODE:
 
-![image-12.png](attachment:image-12.png)
+![image-12.png](images/top_cont.png)
 
 On peut aussi le visualiser via un plot (matplotlib ici):
 
-![image-13.png](attachment:image-13.png)
+![image-13.png](images/plot_contr.png)
 
 
 Egalement, on peut créer un modèle pour visualiser le nombre de commits au cours d'une année:
 
-![image-16.png](attachment:image-16.png)
+![image-16.png](images/date_cli.png)
 
 
-![image-15.png](attachment:image-15.png)
+![image-15.png](images/plot_date.png)
 
 On constate une chute du nombre de commits entre Noël et le nouvel an (plutôt prévisible), et un pic au mois de mars!
 
@@ -104,10 +104,10 @@ On constate une chute du nombre de commits entre Noël et le nouvel an (plutôt 
 
 ### Diagramme DAG
 
-![image-14.png](attachment:image-14.png)
+![image-14.png](images/dag.png)
 
 ### Divers
 
-![image-17.png](attachment:image-17.png)
+![image-17.png](images/divers_1.png)
 
-![image-18.png](attachment:image-18.png)
+![image-18.png](images/divers_2.png)
