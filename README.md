@@ -89,7 +89,7 @@ Egalement, on peut créer un modèle pour visualiser le nombre de commits au cou
 
 ![image-15.png](attachment:image-15.png)
 
-On constate une chute du nombre de commits entre Noël et le nouvel an (plutôt prévisible), et un pic au mois de mars.
+On constate une chute du nombre de commits entre Noël et le nouvel an (plutôt prévisible), et un pic au mois de mars!
 
 
 
