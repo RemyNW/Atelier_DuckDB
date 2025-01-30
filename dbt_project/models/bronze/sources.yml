@@ -1,0 +1,9 @@
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: branches
+      - name: commits
+      - name: issues
+      - name: repo_info
+      - name: contributors

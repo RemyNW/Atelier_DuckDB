@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: branches_transformed
+  - name: commits_transformed
+  - name: contributors_transformed
+  - name: issues_transformed
+  - name: repo_info_transformed

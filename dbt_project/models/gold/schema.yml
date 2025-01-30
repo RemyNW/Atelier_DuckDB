@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: commits_date
+  - name: contributions_fact_table
+  - name: top_contributors

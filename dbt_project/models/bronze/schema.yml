@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: branches
+  - name: commits
+  - name: contributors
+  - name: issues
+  - name: repo_info
