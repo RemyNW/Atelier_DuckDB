@@ -13,7 +13,7 @@ Repository VSCode
 Ici, on utilise donc l'API REST de Github, afin de collecter un certain nombre de données relatif au repo VSCODE. Les différentes fonctions utilisant l'API sont comprises dans le fichier github_api.py, qui seront appelées dans le fichier main.py. 
 Les données ainsi obtenus sont au format JSON.
 
-![image-3.png](attachment:image-3.png)
+![image-3.png](images/image.png)
 
 On définit une Classe python, et chaque méthode de cette classe correspondra à un type différent d'informations du repo VCODE que l'on récupèrera.
 
